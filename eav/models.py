@@ -105,7 +105,7 @@ class EnumGroup(models.Model):
     def __str__(self):
         return self.name
 
-
+@python_2_unicode_compatible
 class Attribute(models.Model):
     '''
     Putting the **A** in *EAV*. This holds the attributes, or concepts.
@@ -156,7 +156,6 @@ class Attribute(models.Model):
                  change it's datatype.
     '''
     
-    @python_2_unicode_compatible
     class Meta(object):
         ordering = ['content_type', 'name']
         unique_together = ('site', 'content_type', 'slug')
