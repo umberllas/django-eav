@@ -50,7 +50,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from .validators import *
 from .fields import EavSlugField, EavDatatypeField
 
-
+@python_2_unicode_compatible
 class EnumValue(models.Model):
     '''
     *EnumValue* objects are the value 'choices' to multiple choice
@@ -83,11 +83,11 @@ class EnumValue(models.Model):
     value = models.CharField(_(u"value"), db_index=True,
                              unique=True, max_length=50)
 
-    @python_2_unicode_compatible
-    def __str__(self):
-        return self.value
+#     @python_2_unicode_compatible
+#     def __str__(self):
+#         return self.value
        
-
+@python_2_unicode_compatible
 class EnumGroup(models.Model):
     '''
     *EnumGroup* objects have two fields- a *name* ``CharField`` and *enums*,
@@ -101,9 +101,9 @@ class EnumGroup(models.Model):
 
     enums = models.ManyToManyField(EnumValue, verbose_name=_(u"enum group"))
 
-    @python_2_unicode_compatible
-    def __str__(self):
-        return self.name
+#     @python_2_unicode_compatible
+#     def __str__(self):
+#         return self.name
 
 
 class Attribute(models.Model):
@@ -155,7 +155,8 @@ class Attribute(models.Model):
     .. warning:: Once an Attribute has been used by an entity, you can not
                  change it's datatype.
     '''
-
+    
+    @python_2_unicode_compatible
     class Meta(object):
         ordering = ['content_type', 'name']
         unique_together = ('site', 'content_type', 'slug')
@@ -322,11 +323,11 @@ class Attribute(models.Model):
             value_obj.value = value
             value_obj.save()
 
-    @python_2_unicode_compatible
-    def __str__(self):
-        return u"%s.%s (%s)" % (self.content_type, self.name, self.get_datatype_display())
+#     @python_2_unicode_compatible
+#     def __str__(self):
+#         return u"%s.%s (%s)" % (self.content_type, self.name, self.get_datatype_display())
 
-
+@python_2_unicode_compatible
 class Value(models.Model):
     '''
     Putting the **V** in *EAV*. This model stores the value for one particular
@@ -406,10 +407,10 @@ class Value(models.Model):
 
     value = property(_get_value, _set_value)
 
-    @python_2_unicode_compatible
-    def __str__(self):
-        return u"%s - %s: \"%s\"" % (self.entity, self.attribute.name,
-                                     self.value)
+#     @python_2_unicode_compatible
+#     def __str__(self):
+#         return u"%s - %s: \"%s\"" % (self.entity, self.attribute.name,
+#                                      self.value)
 
 
 class Entity(object):
